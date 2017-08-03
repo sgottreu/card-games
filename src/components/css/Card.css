@@ -1,0 +1,33 @@
+.Card {
+    width: 128px;
+    height: 156px;
+    border: 1px solid #777;
+    border-radius: 5px;
+    padding:20px 0px;
+    float:left;
+    background: #fff;
+}
+
+.CardBack {
+    background: #3A11D4;
+    border: 2px solid #210B78;
+    border-radius: 5px;
+    width: 88px;
+    height: 116px;
+    margin: 20px;
+}
+
+.CardBack img {
+    width: 88px;
+    margin: 15px 0px;
+}
+
+.SuitIcon img {
+    width: 80px;
+}
+
+.CardRank {
+    margin-top: 25px;
+    font-size: 40px;
+    font-weight: bold;
+}
