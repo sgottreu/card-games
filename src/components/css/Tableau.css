@@ -1,0 +1,6 @@
+.Tableau {
+    min-height: 200px;
+    border: 1px solid #000;
+    display: flex;
+    max-height: 590px;
+}

@@ -6,6 +6,11 @@
     padding:20px 0px;
     float:left;
     background: #fff;
+    position: absolute;
+}
+
+.Card.phanthom {
+    opacity: .3;
 }
 
 .CardBack {

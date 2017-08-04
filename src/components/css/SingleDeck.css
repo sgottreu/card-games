@@ -1,0 +1,46 @@
+.TopDecks {
+    display: flex;
+}
+
+.SingleDeck {
+    height: 218px;
+    flex-direction: row;
+    margin: 20px;
+    background: #ccc;
+    border: 1px solid #000;
+    width: 148px;
+    border-radius: 5px;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.SingleDeck .Card {
+    top: 40px !important;
+}
+
+.StockDeck {
+    
+}
+
+.Hand {
+
+}
+
+.WasteDeck {
+
+}
+
+.MovingDeck {
+    position: absolute;
+    top: 290px;
+    right: 0px;
+    background: rgba(255, 0, 0, 0.55);
+}
+
+.MovingDeck.SingleDeck .Card {
+    top: 20px !important;
+}
+
+.StartingDeck.SingleDeck .Card {
+    top: 546px !important;
+}

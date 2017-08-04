@@ -6,7 +6,7 @@ import './css/Card.css';
 
 const CardBack = ({card}) => {
   return (
-    <div className='CardBack' style={{color: card.suit.cssColor }} >
+    <div className='CardBack'>
         <img src={CardBackLogo} />
     </div>
   );
