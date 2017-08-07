@@ -351,6 +351,7 @@ class App extends Component {
     this.addToHand          = this.addToHand.bind(this);
     this.addToMovingStack   = this.addToMovingStack.bind(this);
     this.addToLandingStack  = this.addToLandingStack.bind(this);
+    this.handleKeyEvent     = this.handleKeyEvent.bind(this);
 
     let state = {
       game: 'classic_solitaire',
@@ -362,7 +363,8 @@ class App extends Component {
       hand: [],
       deck: [],
       moving_stack: [],
-      landing_stack: { area: false, column: false }
+      landing_stack: { area: false, column: false },
+      partial_action: false
     };
 
     let deck = buildDeck(suits, ranks, state.num_decks);
@@ -374,6 +376,18 @@ class App extends Component {
     });
 
     this.state = state;
+  }
+
+  componentDidMount() {
+    window.addEventListener("keyup", this.handleKeyEvent);
+  }
+
+  handleKeyEvent(e) {
+    let _state    = this.state;
+    if(e.key === "f"){
+      _state.partial_action = 'foundation';
+      this.setState( _state.stock );
+    }
   }
 
   fillTableau = () => {
@@ -447,6 +461,10 @@ class App extends Component {
         continue;
       }
       if(deck[x].face && parent.name === 'TableauStack'){
+        if(_state.partial_action === 'foundation'){
+          x = len-1;
+        }
+
         let card = deck.slice(x,x+1);
         if(card === undefined){
           return false;

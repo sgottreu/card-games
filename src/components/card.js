@@ -30,7 +30,7 @@ const Card = ({card, index, colPos, columnLen, parent, movingStack, landingStack
     }
   }
 
-  let top = (colPos === 0) ? '0px' : (parent.name === 'TableauStack') ? '-'+(colPos*116).toString()+'px' : '0px';
+  let top = (colPos === 0) ? '0px' : (parent.name === 'TableauStack') ? '-'+(colPos*166).toString()+'px' : '0px';
 
   if(parent.name === 'MovingDeck'){
     top = +(colPos*46).toString()+'px';
