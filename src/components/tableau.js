@@ -10,7 +10,7 @@ const Tableau = ({tableau_deck, moving_stack, movingStack, landingStack}) => {
         let left = (index+1)*200;
         
         return(
-          <TableauStack key={index} stack={stack} left={left} column={stack.length-1} index={index} moving_stack={moving_stack} movingStack={movingStack} landingStack={landingStack}/>
+          <TableauStack key={index} stack={stack} left={left} column={index} index={index} moving_stack={moving_stack} movingStack={movingStack} landingStack={landingStack}/>
         )
       })}
     </div>

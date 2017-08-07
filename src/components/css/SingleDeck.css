@@ -15,19 +15,19 @@
 }
 
 .SingleDeck .Card {
+    /**/
+}
+
+.StockDeck .Card{
     top: 40px !important;
 }
 
-.StockDeck {
-    
+.Hand .Card{
+    top: 40px !important;
 }
 
-.Hand {
-
-}
-
-.WasteDeck {
-
+.WasteDeck .Card{
+    top: 40px !important;
 }
 
 .MovingDeck {
@@ -37,9 +37,9 @@
     background: rgba(255, 0, 0, 0.55);
 }
 
-.MovingDeck.SingleDeck .Card {
+/*.MovingDeck.SingleDeck .Card {
     top: 20px !important;
-}
+}*/
 
 .StartingDeck.SingleDeck .Card {
     top: 546px !important;

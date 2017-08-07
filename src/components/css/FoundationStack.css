@@ -1,0 +1,16 @@
+.FoundationStack {
+    min-height: 200px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    min-width: 130px;
+    background: rgba(58, 17, 212, 0.35);
+    margin: 0px 20px;
+    height: 218px;
+    border-radius: 5px;
+    border: 1px solid #000;
+}
+
+.FoundationStack .Card {
+    top: 40px !important;
+}

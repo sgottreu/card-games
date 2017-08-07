@@ -18,8 +18,8 @@
     border: 2px solid #210B78;
     border-radius: 5px;
     width: 88px;
-    height: 116px;
-    margin: 20px;
+    height: 156px;
+    margin: 0px 20px;
 }
 
 .CardBack img {
@@ -29,10 +29,26 @@
 
 .SuitIcon img {
     width: 80px;
+    margin-top: 20px;
 }
 
 .CardRank {
-    margin-top: 25px;
     font-size: 40px;
     font-weight: bold;
+}
+
+.CardFront .CardFrontLabel {
+    display: flex;
+    margin-left: 10px;
+    margin-top: -10px;
+}
+
+.CardFront .CardFrontLabel .SuitIcon img{
+    width: 25px;
+    margin-top: 0px;
+}
+.CardFront .CardFrontLabel .CardRank{
+    font-size: 18px;
+    margin-top: 5px;
+    margin-left: 10px;
 }

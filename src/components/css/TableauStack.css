@@ -3,6 +3,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
+    min-width: 130px;
 }
 
 .TableauStack .Card {
