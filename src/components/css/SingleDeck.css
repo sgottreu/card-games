@@ -42,5 +42,5 @@
 }*/
 
 .StartingDeck.SingleDeck .Card {
-    top: 546px !important;
+    position:relative;
 }

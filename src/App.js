@@ -43,6 +43,9 @@ function shuffle(array, i) {
 function multiShuffle(deck, num=10){
   for(var x=0;x<num;x++){
     deck = shuffle( deck );
+    if(x<num-1){
+      deck.reverse();
+    }
   }
   return deck;
 }
@@ -70,7 +73,7 @@ const buildDeck = (suits, ranks, num_decks=1) => {
 };
 
 const classic_solitaire = (state) => {
-  let deck = state.deck, tableau = state.tableau, num_stacks = 7;
+  let stock = state.stock, tableau = state.tableau, num_stacks = 7;
 
   if(tableau.length === 0){
     for(var x=0;x<7;x++){
@@ -78,11 +81,11 @@ const classic_solitaire = (state) => {
     }
   }
 
-  let buildRow = (deck, tableau, num_stacks) => {
+  let buildRow = (stock, tableau, num_stacks) => {
     for(var s=1;s<=num_stacks;s++){
       let len = tableau[ s-1 ].length;
       if(len < s) {
-        let card = deck.pop();
+        let card = stock.pop();
         card.parent = { name: 'TableauStack', column: s-1 };
 
         if(len+1 === s) {
@@ -91,17 +94,17 @@ const classic_solitaire = (state) => {
         tableau[ s-1 ].push( card );
       }
     };
-    return { deck: deck, tableau: tableau };
+    return { stock: stock, tableau: tableau };
   };
 
   for(var s=1;s<=num_stacks;s++){
-    let _data = buildRow(deck, tableau, num_stacks);
+    let _data = buildRow(stock, tableau, num_stacks);
 
-    deck      = _data.deck;
+    stock      = _data.stock;
     tableau   = _data.tableau;
   };
 
-  state.deck      = deck;
+  state.stock      = stock;
   state.tableau   = tableau;
 
   return state;
@@ -361,14 +364,14 @@ class App extends Component {
       stock: [],
       waste: [],
       hand: [],
-      deck: [],
+      //deck: [],
       moving_stack: [],
       landing_stack: { area: false, column: false },
       partial_action: false
     };
 
-    let deck = buildDeck(suits, ranks, state.num_decks);
-    state.deck = multiShuffle( deck );
+    let stock = buildDeck(suits, ranks, state.num_decks);
+    state.stock = multiShuffle( stock );
 
     suits.map( (suit, i) => {
       state.foundations[i] = { suit: suit, deck: false };
@@ -376,9 +379,12 @@ class App extends Component {
     });
 
     this.state = state;
+
+    
   }
 
   componentDidMount() {
+    this.fillTableau();
     window.addEventListener("keyup", this.handleKeyEvent);
   }
 
@@ -400,29 +406,26 @@ class App extends Component {
     if(_state.game === 'classic_solitaire'){
       _state = classic_solitaire(_state);
     }
-
-    _state.stock = clone(_state.deck);
-    _state.deck = [];
-
-    this.setState( _state.stock );
+    this.setState( _state );
   }
 
   addToHand = () => {
     let _state    = this.state;
 
     if(_state.stock.length === 1 && _state.stock[0].rank === undefined){
-      console.log('waste');
-      if(_state.waste[0].rank === undefined){
+      if(_state.waste.length > 0 && _state.waste[0].rank === undefined){
         delete _state.waste[0];
-      }
-      for(var x=0;x<_state.waste.length;x++){
-        console.log(_state.waste[x].suit.name, _state.waste[x].rank);
       }
       _state.waste.reverse();
       _state.stock = _state.waste;
       _state.waste = [];
     } else {
-      for(var x=1;x<=3;x++){
+      if(_state.hand.length > 0){
+        _state.moving_stack = clone(_state.hand);
+        // _state.hand = [];
+        this.addToLandingStack({ name: 'WasteDeck', column: false }, false);
+      }
+      for(var x=1;x<=1;x++){
         let card = _state.stock.pop();
         if(card === undefined){
           continue;
@@ -438,7 +441,7 @@ class App extends Component {
 
   addToMovingStack = (card, parent) => {
     let _state    = this.state;
-    if(_state.moving_stack.length > 0){
+    if(_state.moving_stack.length > 0 || parent.name === "FoundationStack"){
       return false;
     }
 
@@ -529,8 +532,6 @@ class App extends Component {
           </div>
           <Tableau tableau_deck={this.state.tableau} moving_stack={this.state.moving_stack} movingStack={this.addToMovingStack} landingStack={this.addToLandingStack}/>
           <SingleDeck _className="MovingDeck" deck={this.state.moving_stack} moving_stack={this.state.moving_stack} movingStack={this.addToMovingStack} landingStack={this.addToLandingStack} />
-          <button onTouchTap={this.fillTableau}>Deal Tableau</button>
-          <SingleDeck _className="StartingDeck" deck={this.state.deck} />
         {/*</DragDropContextProvider>*/}
       </div>
     );

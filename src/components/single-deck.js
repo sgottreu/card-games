@@ -9,14 +9,11 @@ const SingleDeck = ({deck, _className, addToHand, moving_stack, movingStack, lan
       deck.push({ face: false });
   }
 
-  if(_className === 'MovingDeck'){
+  if(_className === 'StartingDeck'){
     if(deck.length === 0) {
-        //displayClass = 'none';
-    } else {
-        displayClass = 'block';
-    }
+        displayClass = 'none';
+    } 
   }
-  
   return (
     <div className={`SingleDeck ${_className}`} style={{ display: displayClass }}>
       {deck.map((card, index) => {

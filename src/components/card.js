@@ -35,7 +35,6 @@ const Card = ({card, index, colPos, columnLen, parent, movingStack, landingStack
   if(parent.name === 'MovingDeck'){
     top = +(colPos*46).toString()+'px';
   }
-  
 
   let phanthom = (card.rank === undefined) ? 'phanthom' : '';
 
