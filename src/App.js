@@ -386,7 +386,11 @@ class App extends Component {
     let _state    = this.state;
     if(e.key === "f"){
       _state.partial_action = 'foundation';
-      this.setState( _state.stock );
+      this.setState( _state );
+    }
+    if(e.key === "t"){
+      _state.partial_action = 'tableau';
+      this.setState( _state );
     }
   }
 
@@ -438,7 +442,7 @@ class App extends Component {
       return false;
     }
 
-    let deck = false;
+    let deck = false, _card = false;
 
     deck = getCurrentDeck(_state, parent);
     
@@ -451,12 +455,12 @@ class App extends Component {
           deck = [];
           continue;
         }
-        let card = _state.hand.shift();
-        if(card === undefined){
+        _card = _state.hand.shift();
+        if(_card === undefined){
           return false;
         }
-        card.face = false;
-        deck.push(card);
+        _card.face = false;
+        deck.push(_card);
         len = clone(_state.hand.length);
         continue;
       }
@@ -464,31 +468,38 @@ class App extends Component {
         if(_state.partial_action === 'foundation'){
           x = len-1;
         }
+        if(_state.partial_action === 'tableau'){
+          let _x = deck.findIndex(d => { return d.rank === card.rank});
+          if(x < _x){
+            x++;
+            continue;
+          }
+        }
 
-        let card = deck.slice(x,x+1);
-        if(card === undefined){
+        _card = deck.slice(x,x+1);
+        if(_card === undefined){
           return false;
         }
         deck.splice(x, 1);
-        card = (Array.isArray( card )) ? card[0] : card;
-        _state.moving_stack.push( card );
+        _card = (Array.isArray( _card )) ? _card[0] : _card;
+        _state.moving_stack.push( _card );
         len = clone(deck.length);
       } else {
         if( deck[x].face && x === (len-1) ){
-          let card = deck.slice(x,x+1);
-          if(card === undefined){
+          _card = deck.slice(x,x+1);
+          if(_card === undefined){
             return false;
           }
           deck.splice(x, 1);
-          card = (Array.isArray( card )) ? card[0] : card;
-          _state.moving_stack.push( card );
+          _card = (Array.isArray( _card )) ? _card[0] : _card;
+          _state.moving_stack.push( _card );
           len = clone(deck.length);
         } else {
           x++;
         }
       }
     }
-
+    _state.partial_action = false;
     _state = setUpdatedDecks(_state, deck, parent);
 
     this.setState( _state );
